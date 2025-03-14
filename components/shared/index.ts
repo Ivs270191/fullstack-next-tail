@@ -11,3 +11,6 @@ export { ProductCard } from "./product-card";
 export { ProductsGroupList } from "./products-group-list";
 export { CheckboxFiltersGroup } from "./checkbox-filters-group";
 export { RangeSlider } from "./range-slider";
+export { SearchInput } from "./search-input";
+export { PizzaImage } from "./pizza-image";
+export { GroupVariants } from "./group-variants";

@@ -2,22 +2,15 @@
 
 import { cn } from "@/lib/utils";
 import { UseCategoryStore } from "@/store/category";
+import { Category } from "@prisma/client";
 import React from "react";
 
 interface Props {
+  items: Category[];
   className?: string;
 }
 
-export const Categories: React.FC<Props> = ({ className }) => {
-  const items = [
-    { id: 0, name: "Пиццы" },
-    { id: 1, name: "Комбо" },
-    { id: 2, name: "Закуски" },
-    { id: 3, name: "Коктейли" },
-    { id: 4, name: "Кофе" },
-    { id: 5, name: "Напитки" },
-    { id: 6, name: "Дессерты" },
-  ];
+export const Categories: React.FC<Props> = ({ items, className }) => {
   const { activeId } = UseCategoryStore((state) => state);
 
   return (
