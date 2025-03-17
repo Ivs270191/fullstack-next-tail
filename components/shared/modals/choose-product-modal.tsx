@@ -1,18 +1,20 @@
 "use client";
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { useRouter } from "next/navigation";
-// import { ProductWithRelations } from '@/@types/prisma';
-// import { useCartStore } from '@/shared/store';
-// import toast from 'react-hot-toast';
-// import { ProductForm } from '../product-form';
-import { Product } from "@prisma/client";
-import { Title } from "../title";
+import { ProductWithRelations } from "@/@types/prisma";
+import { ProductForm } from "../product-form";
+// import { useCartStore } from "@/shared/store";
 
 interface Props {
-  product: Product;
+  product: ProductWithRelations;
   className?: string;
 }
 
@@ -27,7 +29,9 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
           className
         )}
       >
-        <Title text={product.name}></Title>
+        <DialogTitle className="hidden" />
+        <DialogDescription className="hidden"></DialogDescription>
+        <ProductForm product={product} onSubmit={() => router.back()} />
       </DialogContent>
     </Dialog>
   );
