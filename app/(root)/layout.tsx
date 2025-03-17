@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 
 export default function HomeLayout({
   children,
-}: // modal,
-Readonly<{
+  modal,
+}: Readonly<{
   children: React.ReactNode;
-  // modal: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <main className="min-h-screen">
@@ -19,7 +19,7 @@ Readonly<{
         <Header />
       </Suspense>
       {children}
-      {/* {modal} */}
+      {modal}
     </main>
   );
 }

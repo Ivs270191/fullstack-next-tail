@@ -101,7 +101,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
         onClickCheckbox={filters.setSelectedIngredients}
         selected={filters.selectedIngredients}
       />
-      <button onClick={() => console.log(filters)}>?</button>
+      <button onClick={() => console.log(filters, ingredients)}>?</button>
     </div>
   );
 };
