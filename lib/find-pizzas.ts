@@ -20,7 +20,7 @@ export const findPizzas = async (params: GetSearchParams) => {
 
   const minPrice = Number(params.priceFrom) || DEFAULT_MIN_PRICE;
   const maxPrice = Number(params.priceTo) || DEFAULT_MAX_PRICE;
-
+  console.log(sizes, pizzaTypes, ingredientsIdArr, minPrice, maxPrice);
   const categories = await prisma.category.findMany({
     include: {
       products: {

@@ -1,7 +1,7 @@
 "use client";
 
 import { ProductWithRelations } from "@/@types/prisma";
-// import { useCartStore } from '@/shared/store';
+import { useCartStore } from "../../store/cart";
 import React from "react";
 import toast from "react-hot-toast";
 import { ChoosePizzaForm } from "./choose-pizza-form";
@@ -16,28 +16,28 @@ export const ProductForm: React.FC<Props> = ({
   product,
   onSubmit: _onSubmit,
 }) => {
-  // const [addCartItem, loading] = useCartStore((state) => [state.addCartItem, state.loading]);
+  const { addCartItem, loading } = useCartStore((state) => state);
 
   const firstItem = product.items[0];
   const isPizzaForm = Boolean(firstItem.pizzaType);
 
-  // const onSubmit = async (productItemId?: number, ingredients?: number[]) => {
-  //   try {
-  //     const itemId = productItemId ?? firstItem.id;
+  const onSubmit = async (productItemId?: number, ingredients?: number[]) => {
+    try {
+      const itemId = productItemId ?? firstItem.id;
 
-  //     await addCartItem({
-  //       productItemId: itemId,
-  //       ingredients,
-  //     });
+      await addCartItem({
+        productItemId: itemId,
+        ingredients,
+      });
 
-  //     toast.success(product.name + ' добавлена в корзину');
+      toast.success(product.name + " добавлена в корзину");
 
-  //     _onSubmit?.();
-  //   } catch (err) {
-  //     toast.error('Не удалось добавить товар в корзину');
-  //     console.error(err);
-  //   }
-  // };
+      _onSubmit?.();
+    } catch (err) {
+      toast.error("Не удалось добавить товар в корзину");
+      console.error(err);
+    }
+  };
 
   if (isPizzaForm) {
     return (
@@ -46,8 +46,8 @@ export const ProductForm: React.FC<Props> = ({
         name={product.name}
         ingredients={product.ingredients}
         items={product.items}
-        // onSubmit={onSubmit}
-        // loading={loading}
+        onSubmit={onSubmit}
+        loading={loading}
       />
     );
   }
@@ -56,9 +56,9 @@ export const ProductForm: React.FC<Props> = ({
     <ChooseProductForm
       imageUrl={product.imageUrl}
       name={product.name}
-      // onSubmit={onSubmit}
+      onSubmit={onSubmit}
       price={firstItem.price}
-      // loading={loading}
+      loading={loading}
     />
   );
 };

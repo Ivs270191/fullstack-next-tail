@@ -54,11 +54,11 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     selectedIngredients
   );
 
-  // const handleClickAdd = () => {
-  //   if (currentItemId) {
-  //     onSubmit(currentItemId, Array.from(selectedIngredients));
-  //   }
-  // };
+  const handleClickAdd = () => {
+    if (currentItemId) {
+      onSubmit?.(currentItemId, Array.from(selectedIngredients));
+    }
+  };
 
   return (
     <div className={cn(className, "flex flex-1")}>
@@ -100,10 +100,10 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
         <Button
           loading={loading}
-          // onClick={handleClickAdd}
+          onClick={handleClickAdd}
           className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
         >
-          Добавить в корзину за {totalPrice} ₽
+          Добавить в корзину за {totalPrice} грн
         </Button>
       </div>
     </div>
