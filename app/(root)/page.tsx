@@ -8,11 +8,10 @@ import {
 import { Suspense } from "react";
 import { GetSearchParams, findPizzas } from "@/lib/find-pizzas";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: GetSearchParams;
+export default async function Home(props: {
+  searchParams: Promise<GetSearchParams>;
 }) {
+  const searchParams = await props.searchParams;
   const categories = await findPizzas(searchParams);
 
   return (

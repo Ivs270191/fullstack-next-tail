@@ -1,20 +1,29 @@
-import {
-  Container,
-  PizzaImage,
-  GroupVariants,
-} from "../../../../components/shared";
+import { ProductForm } from "@/components/shared/product-form";
+import { Container } from "../../../../components/shared";
 import { prisma } from "@/prisma/prisma-client";
 import { notFound } from "next/navigation";
 
-export default async function ProductPage({
-  params: { id },
-}: {
-  params: { id: string };
+export default async function ProductPage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
+
+  const { id } = params;
+
   const product = await prisma.product.findFirst({
     where: { id: Number(id) },
     include: {
       ingredients: true,
+      category: {
+        include: {
+          products: {
+            include: {
+              items: true,
+            },
+          },
+        },
+      },
+      items: true,
     },
   });
 
@@ -24,24 +33,7 @@ export default async function ProductPage({
 
   return (
     <Container className="flex flex-col my-10">
-      <div className="flex flex-1">
-        <PizzaImage imageUrl={product.imageUrl} size={30} />
-        <div className="w-[490px] bg-[#f7f6f5] p-7">
-          <p>{product.name} </p>
-          {/* <p>{product.categoryId}</p> */}
-
-          {product.ingredients.map((ingredient) => ingredient.name).join(", ")}
-
-          <GroupVariants
-            items={[
-              { name: "20 см", value: "20" },
-              { name: "30 см", value: "30" },
-              { name: "40 см", value: "40", disabled: true },
-            ]}
-            value="30"
-          />
-        </div>
-      </div>
+      <ProductForm product={product} />
     </Container>
   );
 }

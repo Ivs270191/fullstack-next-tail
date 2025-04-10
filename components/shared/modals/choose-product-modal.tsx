@@ -11,7 +11,6 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { ProductWithRelations } from "@/@types/prisma";
 import { ProductForm } from "../product-form";
-// import { useCartStore } from "@/shared/store";
 
 interface Props {
   product: ProductWithRelations;

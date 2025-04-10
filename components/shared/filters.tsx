@@ -16,20 +16,24 @@ export const Filters: React.FC<Props> = ({ className }) => {
   const { ingredients, loading } = useIngredients();
   const filters = useFilters();
 
-  const updatePrices = (prices: number[]) => {
-    filters.setPrices("priceFrom", prices[0]);
-    filters.setPrices("priceTo", prices[1]);
-  };
-
   useQueryFilters(filters);
 
   const items = ingredients.map((item) => ({
     value: String(item.id),
     text: item.name,
   }));
+
+  const updatePrices = (prices: number[]) => {
+    console.log(prices, 999);
+    filters.setPrices("priceFrom", prices[0]);
+    filters.setPrices("priceTo", prices[1]);
+  };
+
   return (
     <div className={className}>
       <Title text="Фильтрация" size="sm" className="mb-5 font-bold" />
+
+      {/* Верхние чекбоксы */}
       <CheckboxFiltersGroup
         title="Тип теста"
         name="pizzaTypes"
@@ -54,6 +58,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
           { text: "40 см", value: "40" },
         ]}
       />
+
+      {/* Фильтр цен */}
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
         <p className="font-bold mb-3">Цена от и до:</p>
         <div className="flex gap-3 mb-5">
@@ -90,6 +96,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
           onValueChange={updatePrices}
         />
       </div>
+
       <CheckboxFiltersGroup
         title="Ингредиенты"
         name="ingredients"
@@ -101,7 +108,6 @@ export const Filters: React.FC<Props> = ({ className }) => {
         onClickCheckbox={filters.setSelectedIngredients}
         selected={filters.selectedIngredients}
       />
-      <button onClick={() => console.log(filters, ingredients)}>?</button>
     </div>
   );
 };
