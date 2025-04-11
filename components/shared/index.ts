@@ -22,3 +22,5 @@ export { CheckoutSidebar } from "./checkout-sidebar";
 export { CheckoutPersonalForm } from "./checkout-personal-form";
 export { ErrorText } from "./error-text";
 export { RequiredSymbol } from "./required-symbol";
+export { ClearButton } from "./clear-button";
+export { FormInput } from "./form-input";
