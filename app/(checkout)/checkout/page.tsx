@@ -18,6 +18,8 @@ import { useCart } from "@/hooks";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { createOrder } from "@/app/actions";
 import toast from "react-hot-toast";
 
 export default function CheckoutPage() {
@@ -41,9 +43,15 @@ export default function CheckoutPage() {
     try {
       setSubmitting(true);
 
+      const url = await createOrder(data);
+
       toast.error("Заказ успешно оформлен! 📝 Переход на оплату... ", {
         icon: "✅",
       });
+
+      if (url) {
+        location.href = url;
+      }
     } catch (err) {
       console.log(err);
       setSubmitting(false);

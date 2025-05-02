@@ -24,3 +24,4 @@ export { ErrorText } from "./error-text";
 export { RequiredSymbol } from "./required-symbol";
 export { ClearButton } from "./clear-button";
 export { FormInput } from "./form-input";
+export * from "./email-temapltes";
