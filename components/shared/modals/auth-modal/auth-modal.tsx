@@ -53,7 +53,7 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
             GitHub
           </Button>
 
-          <Button
+          {/* <Button
             variant="secondary"
             onClick={() =>
               signIn("google", {
@@ -69,7 +69,7 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
               src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
             />
             Google
-          </Button>
+          </Button> */}
         </div>
 
         <Button
