@@ -13,7 +13,7 @@ export default async function Home(props: {
   searchParams: Promise<GetSearchParams>;
 }) {
   const searchParams = await props.searchParams;
-  const categories = (await findPizzas(searchParams)) ?? [];
+  const categories = await findPizzas(searchParams);
 
   return (
     <>
@@ -23,8 +23,7 @@ export default async function Home(props: {
 
       <TopBar
         categories={categories.filter(
-          (category) =>
-            Array.isArray(category.products) && category.products.length > 0
+          (category) => category.products.length > 0
         )}
       />
       <Stories />
