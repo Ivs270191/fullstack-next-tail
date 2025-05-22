@@ -14,43 +14,45 @@ const DEFAULT_MIN_PRICE = 0;
 const DEFAULT_MAX_PRICE = 1000;
 
 export const findPizzas = async (params: GetSearchParams) => {
-  try {
-    const sizes = params.sizes?.split(",").map(Number);
-    const pizzaTypes = params.pizzaTypes?.split(",").map(Number);
-    const ingredientsIdArr = params.ingredients?.split(",").map(Number);
+  const sizes = params.sizes?.split(",").map(Number);
+  const pizzaTypes = params.pizzaTypes?.split(",").map(Number);
+  const ingredientsIdArr = params.ingredients?.split(",").map(Number);
 
-    const minPrice = Number(params.priceFrom) || DEFAULT_MIN_PRICE;
-    const maxPrice = Number(params.priceTo) || DEFAULT_MAX_PRICE;
+  const minPrice = Number(params.priceFrom) || DEFAULT_MIN_PRICE;
+  const maxPrice = Number(params.priceTo) || DEFAULT_MAX_PRICE;
 
-    const categories = await prisma.category.findMany({
-      include: {
-        products: {
-          orderBy: { id: "desc" },
-          where: {
-            ingredients: ingredientsIdArr?.length
-              ? { some: { id: { in: ingredientsIdArr } } }
-              : undefined,
-            items: {
-              some: {
-                size: sizes?.length ? { in: sizes } : undefined,
-                pizzaType: pizzaTypes?.length ? { in: pizzaTypes } : undefined,
-                price: { gte: minPrice, lte: maxPrice },
-              },
-            },
-          },
-          include: {
-            ingredients: true,
-            items: {
-              where: { price: { gte: minPrice, lte: maxPrice } },
-              orderBy: { price: "asc" },
+  const categories = await prisma.category.findMany({
+    include: {
+      products: {
+        where: {
+          ingredients: ingredientsIdArr?.length
+            ? { some: { id: { in: ingredientsIdArr } } }
+            : undefined,
+          items: {
+            some: {
+              size: sizes?.length ? { in: sizes } : undefined,
+              pizzaType: pizzaTypes?.length ? { in: pizzaTypes } : undefined,
+              price: { gte: minPrice, lte: maxPrice },
             },
           },
         },
+        include: {
+          ingredients: true,
+          items: {
+            where: { price: { gte: minPrice, lte: maxPrice } },
+            orderBy: { price: "asc" }, // это можно оставить
+          },
+        },
       },
-    });
+    },
+  });
 
-    return categories;
-  } finally {
-    await prisma.$disconnect(); // Disconnect after query execution
+  // Сортировка продуктов по id (desc) в JS
+  for (const category of categories) {
+    if (category.products) {
+      category.products.sort((a, b) => b.id - a.id);
+    }
   }
+
+  return categories;
 };

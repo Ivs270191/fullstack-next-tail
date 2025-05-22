@@ -13,7 +13,7 @@ export default async function Home(props: {
   searchParams: Promise<GetSearchParams>;
 }) {
   const searchParams = await props.searchParams;
-  const categories = await findPizzas(searchParams);
+  const categories = (await findPizzas(searchParams)) ?? [];
 
   return (
     <>
@@ -23,7 +23,8 @@ export default async function Home(props: {
 
       <TopBar
         categories={categories.filter(
-          (category) => category.products.length > 0
+          (category) =>
+            Array.isArray(category.products) && category.products.length > 0
         )}
       />
       <Stories />
@@ -42,6 +43,7 @@ export default async function Home(props: {
             <div className="flex flex-col gap-16">
               {categories.map(
                 (category) =>
+                  Array.isArray(category.products) &&
                   category.products.length > 0 && (
                     <ProductsGroupList
                       key={category.id}
