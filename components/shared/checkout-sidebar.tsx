@@ -12,8 +12,6 @@ interface Props {
   totalAmount: number;
   loading?: boolean;
   className?: string;
-  iData?: any;
-  signature?: any;
 }
 
 export const CheckoutSidebar: React.FC<Props> = ({

@@ -48,7 +48,6 @@ export default function CheckoutPage() {
       form.setValue("firstName", firstName);
       form.setValue("lastName", lastName);
       form.setValue("email", data.email);
-      console.log(data);
     }
 
     if (session) {
