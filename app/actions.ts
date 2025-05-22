@@ -99,7 +99,7 @@ export async function createOrder(data: CheckoutFormValues) {
       },
     });
 
-    const paymentUrl = paymentData.url;
+    const paymentUrl = "https://github.com/Ivs270191"; // статическая ссылка на оплату , так как в тестовом режиме
 
     await sendEmail(
       data.email,
