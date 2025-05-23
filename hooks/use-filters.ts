@@ -34,7 +34,7 @@ export const useFilters = (): ReturnProps => {
   >;
 
   const [selectedIngredients, { toggle: toggleIngredients }] = useSet(
-    new Set<string>(searchParams.get("ingredients")?.split(","))
+    new Set<string>(searchParams.get("ingredients")?.split(",") ?? [])
   );
 
   const [sizes, { toggle: toggleSizes }] = useSet(

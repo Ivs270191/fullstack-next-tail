@@ -23,9 +23,6 @@ export async function GET(req: NextRequest) {
       },
       include: {
         items: {
-          orderBy: {
-            createdAt: "desc",
-          },
           include: {
             productItem: {
               include: {

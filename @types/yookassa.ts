@@ -1,13 +1,15 @@
 export interface PaymentData {
-  version: number;
-  action: string;
-  public_key: string;
-  private_key: string;
-  amount: number;
-  currency: string;
+  id: string;
+  status: string;
+  amount: Amount;
   description: string;
-  order_id: string;
-  server_url: string;
+  recipient: Recipient;
+  created_at: string;
+  confirmation: Confirmation;
+  test: boolean;
+  paid: boolean;
+  refundable: boolean;
+  metadata: Metadata;
 }
 
 export interface Amount {

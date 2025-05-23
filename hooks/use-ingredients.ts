@@ -7,19 +7,22 @@ export const useIngredients = () => {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
+    let isMounted = true;
     async function fetchIngredients() {
       try {
         setLoading(true);
         const ingredients = await Api.ingredients.getAll();
-        setIngredients(ingredients);
+        if (isMounted) setIngredients(ingredients);
       } catch (error) {
-        console.log(error);
+        if (isMounted) console.log(error);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     }
-
     fetchIngredients();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return {

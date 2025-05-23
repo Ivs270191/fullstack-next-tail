@@ -25,33 +25,44 @@ export const findPizzas = async (params: GetSearchParams) => {
     include: {
       products: {
         where: {
-          ingredients: ingredientsIdArr?.length
-            ? { some: { id: { in: ingredientsIdArr } } }
+          ingredients: ingredientsIdArr
+            ? {
+                some: {
+                  id: {
+                    in: ingredientsIdArr,
+                  },
+                },
+              }
             : undefined,
           items: {
             some: {
-              size: sizes?.length ? { in: sizes } : undefined,
-              pizzaType: pizzaTypes?.length ? { in: pizzaTypes } : undefined,
-              price: { gte: minPrice, lte: maxPrice },
+              size: {
+                in: sizes,
+              },
+              pizzaType: {
+                in: pizzaTypes,
+              },
+              price: {
+                gte: minPrice, // >=
+                lte: maxPrice, // <=
+              },
             },
           },
         },
         include: {
           ingredients: true,
           items: {
-            where: { price: { gte: minPrice, lte: maxPrice } },
+            where: {
+              price: {
+                gte: minPrice,
+                lte: maxPrice,
+              },
+            },
           },
         },
       },
     },
   });
-
-  // Сортировка продуктов по id (desc) в JS
-  for (const category of categories) {
-    if (category.products) {
-      category.products.sort((a, b) => b.id - a.id);
-    }
-  }
 
   return categories;
 };
