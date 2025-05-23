@@ -40,7 +40,6 @@ export const findPizzas = async (params: GetSearchParams) => {
           ingredients: true,
           items: {
             where: { price: { gte: minPrice, lte: maxPrice } },
-            orderBy: { price: "asc" }, // это можно оставить
           },
         },
       },
