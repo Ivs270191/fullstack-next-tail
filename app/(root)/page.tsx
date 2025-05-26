@@ -4,7 +4,6 @@ import {
   Title,
   TopBar,
   ProductsGroupList,
-  Stories,
 } from "@/components/shared";
 import { Suspense } from "react";
 import { GetSearchParams, findPizzas } from "@/lib/find-pizzas";
@@ -27,7 +26,6 @@ export default async function Home(props: {
             Array.isArray(category.products) && category.products.length > 0
         )}
       />
-      <Stories />
 
       <Container className="mt-10 pb-14">
         <div className="flex gap-[80px]">
